@@ -24,34 +24,36 @@ import { TaskContext } from './../../contexts/TaskContext'
 
 const AddDataTraining = () => {
   const [noPict, setNoPict] = useState(false)
-  const [noVideo,setNoVideo] = useState(false)
+  const [noVideo, setNoVideo] = useState(false)
   const history = useHistory()
   const [fileData, setFileData] = useState({})
   const [fileVideoData, setFileVideoData] = useState({})
   const [author, setAuthor] = useState(null)
-  const [category, setCategory] =useState(null)
-  const [title, setTitle] =useState(null)
-  // 
+  const [category, setCategory] = useState(null)
+  const [title, setTitle] = useState(null)
+  const [videoNum, setVideoNum] = useState(1)
+  //
   const [description, setDescription] = useState(null)
   const myUuid = uuid()
   const imageNum = uuid()
-  const videoNum = uuid()
+
   const { completeWork, setCompleteWOrk } = useContext(TaskContext)
   const { first, second, primaryData } = completeWork
 
-  const labasVideo =() => {
+  const labasVideo = () => {
     if (!fileData == null) {
       return (
         <div className="mb-3">
-        <CFormLabel htmlFor="formFile">Choose a <strong>Video</strong> in your File</CFormLabel>
-        <CFormInput
-          labelText="Company (disabled)"
-          id="formFile"
-          type="file"
-          onChange={onFileChange}
-        />
-      </div>
- 
+          <CFormLabel htmlFor="formFile">
+            Choose a <strong>Video</strong> in your File
+          </CFormLabel>
+          <CFormInput
+            labelText="Company (disabled)"
+            id="formFile"
+            type="file"
+            onChange={onFileChange}
+          />
+        </div>
       )
     }
   }
@@ -63,52 +65,26 @@ const AddDataTraining = () => {
     toggleImage()
     setFileData(file)
   }
-  const onVideoChange = async (e) => {
-    const file = e.target.files[0]
-    toggleVideo()
-    setFileVideoData(file)
-  }
   const register = async () => {
     const uniqueId = myUuid
     const imageName = imageNum
-    const VideoName = videoNum
     const storageRef = storage.ref()
     //image
     const fileRef = storageRef.child(imageName)
     await fileRef.put(fileData)
     const imageDocs = await fileRef.getDownloadURL()
-    //video
-    const fileVideoRef = storageRef.child(VideoName)
-    await fileVideoRef.put(fileVideoData)
-    const videoDocs = await fileVideoRef.getDownloadURL()
 
     await db
       .collection(primaryData)
       .doc(uniqueId)
       .set({
-        author:author,
-        title:title,
-        category:category,
+        author: author,
+        title: title,
+        category: category,
         imageName: imageName,
         image: imageDocs,
-        videoName: VideoName,
-        video: videoDocs,
         description: description,
-      })
-      .catch((error) => alert(error))
-
-    history.push('/trainingHome')
-  }
-  const registerNoimage = async () => {
-    const uniqueId = myUuid
-    await db
-      .collection(primaryData)
-      .doc(uniqueId)
-      .set({
-        author:author,
-        title:title,
-        category:category,
-        description: description,
+        videoNum: videoNum
       })
       .catch((error) => alert(error))
 
@@ -129,7 +105,6 @@ const AddDataTraining = () => {
     setDescription(event.target.value)
   }
 
-
   return (
     <CRow>
       <CCol xs={12}>
@@ -139,7 +114,9 @@ const AddDataTraining = () => {
           </CCardHeader>
           <CCardBody>
             <div className="mb-3">
-              <CFormLabel htmlFor="formFile">Choose a <strong>Image</strong> in your File</CFormLabel>
+              <CFormLabel htmlFor="formFile">
+                Choose a <strong>Image</strong> in your File
+              </CFormLabel>
               <CFormInput
                 labelText="Company (disabled)"
                 id="formFile"
@@ -147,22 +124,6 @@ const AddDataTraining = () => {
                 onChange={onFileChange}
               />
             </div>
-
-            {/* <br />
-            <div className="mb-3">
-              <CFormLabel htmlFor="formFile">Need Image to Choose a <strong>Video</strong> in your File</CFormLabel>
-              <CFormInput
-                labelText="Company (disabled)"
-                id="formFile"
-                type="file"
-                disabled={!noPict}
-                onChange={onVideoChange}
-              />
-            </div> */}
-     
-               
-            
-            
             <br />
             <p className="text-medium-emphasis small">
               By adding <a href="https://coreui.io/docs/layout/gutters/">gutter modifier classes</a>
@@ -173,7 +134,7 @@ const AddDataTraining = () => {
               More complex layouts can also be created with the grid system.
             </p>
             <DocsExample href="forms/layout#gutters">
-              <CForm className="row g-3">           
+              <CForm className="row g-3">
                 <CCol md={6}>
                   <CFormLabel htmlFor="inputCity">Title</CFormLabel>
                   <CFormInput id="title" value={title} onChange={handleChangeTitle} />
@@ -199,11 +160,10 @@ const AddDataTraining = () => {
                 </div>
 
                 <CCol xs={6}>
-                  <CButton disabled={!noPict} onClick={register}>
+                  <CButton disabled={!noPict || !title} onClick={register}>
                     Add With Picture
                   </CButton>
                 </CCol>
-               
               </CForm>
             </DocsExample>
           </CCardBody>

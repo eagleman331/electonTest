@@ -77,7 +77,6 @@ const EdiFirst = () => {
   }
 
   const deletePicture = () => {
-    console.log('image', imageDocs)
     const storageRef = storage.refFromURL(imageDocs)
     storageRef
       .delete()
@@ -140,9 +139,6 @@ const EdiFirst = () => {
     setDescription(finalData.description)
   }, [finalData])
   const stringData = "/" + primaryData
-  console.log('path', typeof stringData)
-  console.log('/path', stringData)
-  console.log('first', first)
   return (
     <CRow>
       <CCol xs={12}>

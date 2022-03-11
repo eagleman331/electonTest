@@ -97,7 +97,6 @@ const ManageUsers = () => {
   }
   const deleteUserFirebase = () => {
     const DelUser = functions.httpsCallable('deleteUser')
-    console.log("delete", uid)
     if (admin == true) {
       DelUser({ uid: uid }).then((result) => {
         console.log('Delete User', result)

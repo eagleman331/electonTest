@@ -44,20 +44,13 @@ const EditTrain2 = () => {
   const [imageDocs, setImageDocs] = useState({})
   //
   const [videoName, setVideoName] = useState('')
-  const [videoDocs, setVideoDocs] = useState({})
 
   const history = useHistory()
   const toggleImage = () => setNoPict((value) => !value)
-  const togglevideo = () => setNoVid((value) => !value)
   const onFileChange = async (e) => {
     const file = e.target.files[0]
     toggleImage()
     setFileData(file)
-  }
-  const onVideoChange = async (e) => {
-    const file = e.target.files[0]
-    togglevideo()
-    setFileVideoData(file)
   }
   const handleChangeAuthor = (event) => {
     setAuthor(event.target.value)
@@ -68,36 +61,18 @@ const EditTrain2 = () => {
   const handleChangeTitle = (event) => {
     setTitle(event.target.value)
   }
-
+  const handleChangeVideoName = (event) => {
+    setVideoName(event.target.value)
+  }
+  
   const handleChangeDescription = (event) => {
     setDescription(event.target.value)
   }
 
-  const updateNOPicture = async () => {
-    await db
-      .collection(primaryData)
-      .doc(first)
-      .update({
-        author: author,
-        title: title,
-        category: category,
-        description: description,
-      })
-      .catch((error) => alert(error))
-    history.push("/secondLayerTraining")
-  }
 
   const deletePicture = () => {
-    console.log('image', imageDocs)
     const storageRef = storage.refFromURL(imageDocs)
-    const storageVideoRef = storage.refFromURL(videoDocs)
     storageRef
-      .delete()
-      .then(() => {
-        console.log('Deleted')
-      })
-      .catch((err) => console.log(err))
-    storageVideoRef
       .delete()
       .then(() => {
         console.log('Deleted')
@@ -111,17 +86,12 @@ const EditTrain2 = () => {
       deletePicture()
     }
     const uniqueId = myUuid
-    const uniqueVideoId = imageNum
 
     const storageRef = storage.ref()
     //image
     const fileRef = storageRef.child(uniqueId)
     await fileRef.put(fileData)
     const imagepic = await fileRef.getDownloadURL()
-    //video
-    const fileVideoRef = storageRef.child(uniqueVideoId)
-    await fileVideoRef.put(fileVideoData)
-    const videopic = await fileVideoRef.getDownloadURL()
 
     await db
       .collection(primaryData)
@@ -131,8 +101,6 @@ const EditTrain2 = () => {
       .update({
         imageName: uniqueId,
         image: imagepic,
-        videoName: uniqueVideoId,
-        video: videopic,
         author: author,
         title: title,
         category: category,
@@ -162,13 +130,11 @@ const EditTrain2 = () => {
     setImageName(finalData.imageName)
     setImageDocs(finalData.image)
     setVideoName(finalData.videoName)
-    setVideoDocs(finalData.video)
     setTitle(finalData.title)
     setAuthor(finalData.author)
     setCategory(finalData.category)
     setDescription(finalData.description)
   }, [finalData])
-  const stringData = '/' + primaryData
 
   return (
     <CRow>
@@ -188,16 +154,6 @@ const EditTrain2 = () => {
               />
             </div>
 
-            <br />
-            <div className="mb-3">
-              <CFormLabel htmlFor="formFile">Choose a Picture in your File</CFormLabel>
-              <CFormInput
-                labelText="Company (disabled)"
-                id="formFile"
-                type="file"
-                onChange={onVideoChange}
-              />
-            </div>
             <br />
             <p className="text-medium-emphasis small">
               By adding <a href="https://coreui.io/docs/layout/gutters/">gutter modifier classes</a>
@@ -222,6 +178,10 @@ const EditTrain2 = () => {
                   <CFormLabel htmlFor="inputCity">Author</CFormLabel>
                   <CFormInput id="author" value={author} onChange={handleChangeAuthor} />
                 </CCol>
+                <CCol md={6}>
+                  <CFormLabel htmlFor="inputCity">video</CFormLabel>
+                  <CFormInput id="videoName" value={videoName} onChange={handleChangeVideoName} />
+                </CCol>
 
                 <div className="mb-3">
                   <CFormLabel htmlFor="exampleFormControlTextarea1">Descirption</CFormLabel>
@@ -234,7 +194,7 @@ const EditTrain2 = () => {
                 </div>
 
                 <CCol xs={6}>
-                  <CButton disabled={!noPict || !noVid} onClick={updatePicture}>
+                  <CButton disabled={!noPict} onClick={updatePicture}>
                     Update Picture
                   </CButton>
                 </CCol>

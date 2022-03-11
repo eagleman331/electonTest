@@ -64,7 +64,6 @@ const Training = () => {
   }
   //nabago
   const deletePicture = (id) => {
-    console.log('id', id)
     const imageId = id.data.image
 
     const storageRef = storage.refFromURL(imageId)
@@ -104,7 +103,7 @@ const Training = () => {
       ),
     )
   }, [])
-
+console.log("data",data)
   return (
     <CRow>
       <CCol xs={12}>
@@ -123,7 +122,6 @@ const Training = () => {
 
             <CRow xs={{ cols: 1, gutter: 4 }} md={{ cols: 3 }}>
               {data.map(({ id, data }, k) => {
-                // console.log("data", data.image)
                 return (
                   <CCol xs key={k}>
                     <CCard style={{ width: '18rem' }}>

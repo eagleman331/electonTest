@@ -80,7 +80,6 @@ const ActualPaper = () => {
     const imageId = id.data.imageName
     
     if (imageId === undefined && null) {
-     console.log("null")
     }else{ deletePicture(id)}
     const cardData = id.id
     const unsubscribe = 

@@ -86,8 +86,6 @@ const FrontNews = () => {
   //
   const deleteData = (id) => {
     const imageId = id.data.imageName
-    
-    console.log("id", imageId)
     if (imageId === undefined && null) {
      console.log("null")
     }else{ deletePicture(id)}

@@ -77,7 +77,6 @@ const deleteData = (id) => {
     deletePicture(id)
   }
   const cardData = id.id
-  console.log("image",cardData)
   const unsubscribe = db.collection(primaryData)
   .doc(first)
   .collection(first)
@@ -105,10 +104,6 @@ useEffect(() => {
 
   return unsubscribe;
 }, []);
-
-console.log("Primary", dataPreview )
-console.log("first", first)
-console.log("first", primaryData)
   return (
     <CRow>
             <CCol xs={12}>

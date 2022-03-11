@@ -69,7 +69,6 @@ const Training = () => {
   }
   //nabago
   const deletePicture = (id) => {
-    console.log('id', id)
     const imageId = id.data.image
 
     const storageRef = storage.refFromURL(imageId)
@@ -91,7 +90,6 @@ const Training = () => {
     const unsubscribe = db.collection('trainingHome').doc(cardData).delete()
     return unsubscribe
   }
-  //??????????????????wA  organization
 
   useEffect(() => {
     const unsubscribe = db.collection('trainingHome').onSnapshot((snapshot) =>
@@ -122,7 +120,6 @@ const Training = () => {
 
             <CRow xs={{ cols: 1, gutter: 4 }} md={{ cols: 3 }}>
               {data.map(({ id, data }, k) => {
-                // console.log("data", data.image)
                 return (
                   <CCol xs key={k}>
                     <CCard style={{ width: '18rem' }}>

@@ -165,9 +165,6 @@ const EditTraining = () => {
     setDescription(finalData.description)
   }, [])
   const stringData = '/' + primaryData
-  console.log('path', typeof stringData)
-  console.log('/path', stringData)
-  console.log('first', first)
   return (
     <CRow>
       <CCol xs={12}>
