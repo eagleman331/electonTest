@@ -31,7 +31,7 @@ import { TaskContext } from '../../../contexts/TaskContext'
 import CIcon from '@coreui/icons-react'
 import { cilBell } from '@coreui/icons'
 
-const NewsPaper = () => {
+const BulletinPaper = () => {
   const { completeWork, setCompleteWOrk } = useContext(TaskContext)
   const [data, setData] = useState([])
   const history = useHistory()
@@ -41,10 +41,10 @@ const NewsPaper = () => {
 
     setCompleteWOrk((prevState) => ({
       ...prevState,
-      primaryData: 'paper',
+      primaryData: 'bulletinHome',
       first: testId.testId,
     }))
-    history.push('/paper2')
+    history.push('/secondLayerTraining')
   }
   //WhiteArea Data
 
@@ -53,19 +53,19 @@ const NewsPaper = () => {
     e.preventDefault()
     setCompleteWOrk((prevState) => ({
       ...prevState,
-      primaryData: 'paper',
+      primaryData: 'bulletinHome',
     }))
-    history.push('/addPaper')
+    history.push('/addBulletin')
   }
 
   const editWhiteTP = (testId) => {
     //edit
     setCompleteWOrk((prevState) => ({
       ...prevState,
-      primaryData: 'paper',
+      primaryData: 'bulletinHome',
       first: testId.testId,
     }))
-    history.push('/editPaper')
+    history.push('/editTraining')
   }
   //nabago
   const deletePicture = (id) => {
@@ -87,13 +87,12 @@ const NewsPaper = () => {
       deletePicture(id)
     }
     const cardData = id.id
-    const unsubscribe = db.collection('paper').doc(cardData).delete()
+    const unsubscribe = db.collection('bulletinHome').doc(cardData).delete()
     return unsubscribe
   }
-  //??????????????????wA  organization
 
   useEffect(() => {
-    const unsubscribe = db.collection('paper').onSnapshot((snapshot) =>
+    const unsubscribe = db.collection('bulletinHome').onSnapshot((snapshot) =>
       setData(
         snapshot.docs.map((doc) => ({
           id: doc.id,
@@ -112,7 +111,7 @@ const NewsPaper = () => {
       <CCol xs={12}>
         <CCard className="mb-4">
           <CCardHeader>
-            <strong>Paper</strong> <small>NewsPaper</small>
+            <strong>Training</strong> <small>Basic</small>
           </CCardHeader>
           <CCardBody>
             <p className="text-medium-emphasis small">
@@ -121,32 +120,26 @@ const NewsPaper = () => {
 
             <CRow xs={{ cols: 1, gutter: 4 }} md={{ cols: 3 }}>
               {data.map(({ id, data }, k) => {
+                console.log("time", data.time)
                 return (
                   <CCol xs key={k}>
                     <CCard style={{ width: '18rem' }}>
                       <CCardImage style={{height: 150}} orientation="top" alt="none" src={data.image} />
                       <CCardBody>
-                        <CCardTitle>{data.alias}</CCardTitle>
+                        <CCardTitle>Title:  {data.title}</CCardTitle>
                         <CCardText>
-                          Some quick example text to build on the card title and make up the bulk of
-                          the card's content.
+                          Program:  {data.program}
                         </CCardText>
-                        <CButton
-                          style={{ marginRight: '10rem' }}
-                          color="success"
-                          size="sm"
-                          shape="rounded-0"
-                          style={{ width: '10rem' }}
-                          onClick={() => lipat({ testId: id })}
-                        >
-                          Next
-                        </CButton>
+                        <CCardText>
+                          Author:  {data.author}
+                        </CCardText>
+                        <CCardText>
+                          Date Created:  {data.time}
+                        </CCardText>
+
                       </CCardBody>
                       <CCardFooter>
-                        <CButton onClick={() => editWhiteTP({ testId: id })} color="link">
-                          <CIcon icon={cilBell} className="me-2" />
-                          Edit Data
-                        </CButton>
+                     
                         <CButton onClick={() => deleteData({ id, data: data })} color="link">
                           <CIcon icon={cilBell} className="me-2" />
                           Delete
@@ -168,7 +161,7 @@ const NewsPaper = () => {
                     color="success"
                     size="sm"
                     shape="rounded-0"
-                    style={{ width: '10rem' }}
+                    
                     onClick={createCard}
                   >
                     Create a Card
@@ -188,4 +181,4 @@ const NewsPaper = () => {
   )
 }
 
-export default NewsPaper
+export default BulletinPaper

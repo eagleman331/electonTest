@@ -43,16 +43,10 @@ const EditSecTraining = React.lazy(() => import('./views/TrainingData/BasicTrain
 // const secongTraining 
 const AdvanceTraining = React.lazy(() => import('./views/TrainingData/AdvanceTraining/AdvanceTraining.js'))
 //Paper
-const Comics = React.lazy(() => import('./views/Papers/Comics.js'))
-const NewsPaper = React.lazy(() => import('./views/Papers/newspaper/NewsPaper.js'))
-const ActualPaper = React.lazy(() => import('./views/Papers/newspaper/ActualPaper.js'))
-const PagePaper = React.lazy(() => import('./views/Papers/newspaper/PagePaper.js'))
-const AddPaper = React.lazy(() => import('./views/Papers/add Data/AddNewsPaper.js'))
-const AddPaper2 = React.lazy(() => import('./views/Papers/add Data/AddSecPaper.js'))
-const AddPaper3 = React.lazy(() => import('./views/Papers/add Data/addPaperthree.js'))
-const EditPaper = React.lazy(() => import('./views/Papers/EditDatabase/EditPaper.js'))
-const EditPaper2 = React.lazy(() => import('./views/Papers/EditDatabase/EditPaper2.js'))
-const EditPaper3 = React.lazy(() => import('./views/Papers/EditDatabase/EditPaperthree.js'))
+const Comics = React.lazy(() => import('./views/Bulletin/Comics.js'))
+const Bulletin = React.lazy(() => import('./views/Bulletin/Bulletin/BulletinPaper.js'))
+const AddBulletin = React.lazy(() => import('./views/Bulletin/add Data/AddBulletin.js'))
+
 
 
 // Base
@@ -188,15 +182,8 @@ const routes = [
   
 
   //Paper
-  {path: '/paper', name: 'Paper', component: NewsPaper },
-  {path: '/paper2', name: 'Second Layer Paper', component: ActualPaper },
-  {path: '/paper3', name: 'Page Paper', component: PagePaper },
-  {path: '/addPaper', name: 'Paper', component: AddPaper },
-  {path: '/addPaper2', name: 'Paper', component: AddPaper2 },
-  {path: '/addPaper3', name: 'Paper', component: AddPaper3 },
-  {path: '/editPaper', name: 'Paper', component: EditPaper },
-  {path: '/editPaper2', name: 'Paper2', component: EditPaper2 },
-  {path: '/editPaper3', name: 'Paper3', component: EditPaper3 },
+  {path: '/bulletin', name: 'Bulletin', component: Bulletin },
+  {path: '/addBulletin', name: 'AddBulletin', component: AddBulletin },
   {path: '/comics', name: 'Paper', component: Comics },
 
 ]

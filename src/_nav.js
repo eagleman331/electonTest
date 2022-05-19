@@ -89,14 +89,14 @@ const _nav = [
   },
   {
     component: CNavGroup,
-    name: 'Papers',
+    name: 'Bulletin',
     to: '/frontEndDataPlatform',
     icon: <CIcon icon={cilCursor} customClassName="nav-icon" />,
     items: [
       {
         component: CNavItem,
-        name: 'News Paper',
-        to: '/paper',
+        name: 'Bulletin',
+        to: '/bulletin',
       },
       {
         component: CNavItem,

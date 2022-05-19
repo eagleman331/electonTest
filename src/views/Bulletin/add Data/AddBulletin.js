@@ -16,108 +16,103 @@ import {
   CRow,
 } from '@coreui/react'
 import { DocsExample } from 'src/components'
+import firebase from 'firebase/compat/app';
 
 import { v4 as uuid } from 'uuid'
 import { useHistory } from 'react-router-dom'
 import { db, storage } from './../../../Firebase'
 import { TaskContext } from './../../../contexts/TaskContext'
 
-const AddNewsPaper = () => {
+const AddBulletin = () => {
   const [noPict, setNoPict] = useState(false)
-  const [noVideo,setNoVideo] = useState(false)
+  const [noPict2, setNoPict2] = useState(false)
+  //
+  const [what,setWhat] = useState("")
+  const [when,setWhen] = useState("")
+  const [where,setWhere] = useState("")
+  const [who,setWho] = useState("")
+  //
   const history = useHistory()
   const [fileData, setFileData] = useState({})
+  const [fileData2, setFileData2] = useState({})
   const [fileVideoData, setFileVideoData] = useState({})
   const [author, setAuthor] = useState(null)
-  const [category, setCategory] =useState(null)
-  const [title, setTitle] =useState(null)
-  // 
+  const [category, setCategory] = useState(null)
+  const [title, setTitle] = useState(null)
+  //
   const [description, setDescription] = useState(null)
   const myUuid = uuid()
   const imageNum = uuid()
-  const videoNum = uuid()
-  const { completeWork, setCompleteWOrk } = useContext(TaskContext)
-  const { first, second, primaryData } = completeWork
+  const imageNum2 = uuid()
 
-  const labasVideo =() => {
+  const { completeWork, setCompleteWOrk } = useContext(TaskContext)
+  const { primaryData } = completeWork
+
+  const labasVideo = () => {
     if (!fileData == null) {
       return (
         <div className="mb-3">
-        <CFormLabel htmlFor="formFile">Choose a <strong>Video</strong> in your File</CFormLabel>
-        <CFormInput
-          labelText="Company (disabled)"
-          id="formFile"
-          type="file"
-          onChange={onFileChange}
-        />
-      </div>
- 
+          <CFormLabel htmlFor="formFile">
+            Choose a <strong>Video</strong> in your File
+          </CFormLabel>
+          <CFormInput
+            labelText="Company (disabled)"
+            id="formFile"
+            type="file"
+            onChange={onFileChange}
+          />
+        </div>
       )
     }
   }
   const toggleImage = () => setNoPict((value) => !value)
-  const toggleVideo = () => setNoVideo((value) => !value)
+  const toggleImage2 = () => setNoPict2((value) => !value)
 
   const onFileChange = async (e) => {
     const file = e.target.files[0]
     toggleImage()
     setFileData(file)
   }
-  const onVideoChange = async (e) => {
+  const onFileChange2 = async (e) => {
     const file = e.target.files[0]
-    toggleVideo()
-    setFileVideoData(file)
+    toggleImage2()
+    setFileData2(file)
   }
   const register = async () => {
-    const stringPath = '/' + primaryData
     const uniqueId = myUuid
     const imageName = imageNum
-
+    const imageName2 = imageNum2
     const storageRef = storage.ref()
     //image
     const fileRef = storageRef.child(imageName)
     await fileRef.put(fileData)
     const imageDocs = await fileRef.getDownloadURL()
-  
+    //image2
+    const fileRef2 = storageRef.child(imageName2)
+    await fileRef2.put(fileData2)
+    const imageDocs2 = await fileRef2.getDownloadURL()
 
     await db
       .collection(primaryData)
-      .doc(first)
-      .collection(first)
-      .doc(second)
-      .collection(second)
       .doc(uniqueId)
       .set({
-        author:author,
-        title:title,
-        category:category,
+        author: author,
+        title: title,
+        category: category,
         imageName: imageName,
         image: imageDocs,
-        
+        imageName2: imageName2,
+        background: imageDocs2,
         description: description,
+        participants: who,
+        program:what,
+        time:when,
+        location:where,   
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
       })
       .catch((error) => alert(error))
 
-    history.push("/paper3")
-  }
-  const registerNoimage = async () => {
-    const uniqueId = myUuid
-    await db
-      .collection(primaryData)
-      .doc(first)
-      .collection(first)
-      .doc(second)
-      .collection(second)
-      .doc(uniqueId)
-      .set({
-        author:author,
-        title:title,
-        category:category,
-        description: description,
-      })
-      .catch((error) => alert(error))
-
-      history.push("/paper3")
+    history.push('/bulletin')
   }
 
   const handleChangeAuthor = (event) => {
@@ -133,7 +128,19 @@ const AddNewsPaper = () => {
   const handleChangeDescription = (event) => {
     setDescription(event.target.value)
   }
-
+  //
+  const handleChangeWhat = (event) => {
+    setWhat(event.target.value)
+  }
+  const handleChangeWhen = (event) => {
+    setWhen(event.target.value)
+  }
+  const handleChangeWhere = (event) => {
+    setWhere(event.target.value)
+  }
+  const handleChangeWho = (event) => {
+    setWho(event.target.value)
+  }
 
   return (
     <CRow>
@@ -144,7 +151,9 @@ const AddNewsPaper = () => {
           </CCardHeader>
           <CCardBody>
             <div className="mb-3">
-              <CFormLabel htmlFor="formFile">Choose a <strong>Image</strong> in your File</CFormLabel>
+              <CFormLabel htmlFor="formFile">
+                Choose a <strong>Image</strong> in your File
+              </CFormLabel>
               <CFormInput
                 labelText="Company (disabled)"
                 id="formFile"
@@ -152,10 +161,18 @@ const AddNewsPaper = () => {
                 onChange={onFileChange}
               />
             </div>
-     
-               
-            
-            
+            <br />
+            <div className="mb-3">
+              <CFormLabel htmlFor="formFile">
+                Choose a <strong>Backgound</strong> in your File
+              </CFormLabel>
+              <CFormInput
+                labelText="Company (disabled)"
+                id="formFile"
+                type="file"
+                onChange={onFileChange2}
+              />
+            </div>
             <br />
             <p className="text-medium-emphasis small">
               By adding <a href="https://coreui.io/docs/layout/gutters/">gutter modifier classes</a>
@@ -166,7 +183,7 @@ const AddNewsPaper = () => {
               More complex layouts can also be created with the grid system.
             </p>
             <DocsExample href="forms/layout#gutters">
-              <CForm className="row g-3">           
+              <CForm className="row g-3">
                 <CCol md={6}>
                   <CFormLabel htmlFor="inputCity">Title</CFormLabel>
                   <CFormInput id="title" value={title} onChange={handleChangeTitle} />
@@ -180,9 +197,26 @@ const AddNewsPaper = () => {
                   <CFormLabel htmlFor="inputCity">Author</CFormLabel>
                   <CFormInput id="author" value={author} onChange={handleChangeAuthor} />
                 </CCol>
+                <CCol md={6}>
+                  <CFormLabel htmlFor="inputCity">Participants</CFormLabel>
+                  <CFormInput id="who" value={who} onChange={handleChangeWho} />
+                </CCol>
+                <CCol md={6}>
+                  <CFormLabel htmlFor="inputCity">Time</CFormLabel>
+                  <CFormInput id="when" value={when} onChange={handleChangeWhen} />
+                </CCol>
+                <CCol md={6}>
+                  <CFormLabel htmlFor="inputCity">Location</CFormLabel>
+                  <CFormInput id="where" value={where} onChange={handleChangeWhere} />
+                </CCol>
+                <CCol md={6}>
+                  <CFormLabel htmlFor="inputCity">Program</CFormLabel>
+                  <CFormInput id="what" value={what} onChange={handleChangeWhat} />
+                </CCol>
+              
 
                 <div className="mb-3">
-                  <CFormLabel htmlFor="exampleFormControlTextarea1">Descirption</CFormLabel>
+                  <CFormLabel htmlFor="exampleFormControlTextarea1">Description</CFormLabel>
                   <CFormTextarea
                     id="description"
                     fullWidth={true}
@@ -192,11 +226,10 @@ const AddNewsPaper = () => {
                 </div>
 
                 <CCol xs={6}>
-                  <CButton disabled={!noPict} onClick={register}>
+                  <CButton disabled={!noPict || !noPict2} onClick={register}>
                     Add With Picture
                   </CButton>
                 </CCol>
-               
               </CForm>
             </DocsExample>
           </CCardBody>
@@ -206,4 +239,4 @@ const AddNewsPaper = () => {
   )
 }
 
-export default AddNewsPaper
+export default AddBulletin
