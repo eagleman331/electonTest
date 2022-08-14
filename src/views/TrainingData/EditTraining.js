@@ -128,7 +128,7 @@ const EditTraining = () => {
         imageName: imageTempNum,
         image: imagepic,
         // videoName: videoTempNum,
-        // video: video,
+        video: video,
         // author: author,
         // title: title,
         // category: category,

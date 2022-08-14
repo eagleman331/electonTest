@@ -105,6 +105,7 @@ const EditTrain2 = () => {
         title: title,
         category: category,
         description: description,
+        videoName: videoName
       })
       .catch((error) => alert(error))
 

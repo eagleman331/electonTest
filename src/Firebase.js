@@ -6,13 +6,13 @@ import 'firebase/compat/functions';
 
 
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_FIREBASE,
-  authDomain: "reservesocialapp.firebaseapp.com",
-  projectId: "reservesocialapp",
-  storageBucket: "reservesocialapp.appspot.com",
-  messagingSenderId: "773206829548",
-  appId: process.env.REACT_APP_FIRE_ID,
-  measurementId: "G-GY78EE84VY",
+  apiKey: "AIzaSyCC8t1hDQj4thiSb9PrYExJwErtzeNWPSM",
+  authDomain: "comrade-4944f.firebaseapp.com",
+  projectId: "comrade-4944f",
+  storageBucket: "comrade-4944f.appspot.com",
+  messagingSenderId: "144759736825",
+  appId: "1:144759736825:web:8eaabdbcdb3c208ce69528",
+  measurementId: "G-0DYX30R1E1"
 };
   let app;
 
