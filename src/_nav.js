@@ -62,23 +62,18 @@ const _nav = [
   },
   {
     component: CNavTitle,
-    name: 'Training',
+    name: 'Officer Candidate School',
   },
   {
     component: CNavGroup,
-    name: 'ROTC',
-    to: '/trainingHome',
+    name: 'OCS',
+    to: '/occHome',
     icon: <CIcon icon={cilCursor} customClassName="nav-icon" />,
     items: [
       {
         component: CNavItem,
-        name: 'Basic',
-        to: '/trainingHome',
-      },
-      {
-        component: CNavItem,
-        name: 'Advance',
-        to: '/trainingAdvance',
+        name: 'OCC',
+        to: '/occHome',
       },
      
     ],

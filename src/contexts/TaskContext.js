@@ -18,13 +18,13 @@ const TaskContextProvider = (props) => {
         "roles": null,
         "timestamp": null
     });
-
+    const [className, setClassName] = useState("")
 
 
 
     return (
         <TaskContext.Provider value={{
-        completeWork, setCompleteWOrk,knownUser, setKnownUser,
+        completeWork, setCompleteWOrk,knownUser, setKnownUser,className, setClassName
             
         }}>
             {props.children}

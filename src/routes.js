@@ -1,8 +1,5 @@
 import React from 'react'
 
-
-
-
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const ManageUsers = React.lazy(() => import('./views/ManageUsers/ManageUsers'))
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
@@ -46,8 +43,13 @@ const AdvanceTraining = React.lazy(() => import('./views/TrainingData/AdvanceTra
 const Comics = React.lazy(() => import('./views/Bulletin/Comics.js'))
 const Bulletin = React.lazy(() => import('./views/Bulletin/Bulletin/BulletinPaper.js'))
 const AddBulletin = React.lazy(() => import('./views/Bulletin/add Data/AddBulletin.js'))
-
-
+//OCC
+const OCCHome = React.lazy(() => import('./views/OCClist/OCC/Primary/OCCHome.js'))
+const AddOCCClass = React.lazy(() => import('./views/OCClist/OCC/Primary/AddClass.js'))
+const EditOCCClass = React.lazy(() => import('./views/OCClist/OCC/Primary/EditClassOCC.js'))
+const OCCCadet = React.lazy(() => import('./views/OCClist/OCC/Secondary/OCCcadetHome.js'))
+const AddOCCCadet = React.lazy(() => import('./views/OCClist/OCC/Secondary/AddOCCcadet.js'))
+const EditOCCCadet = React.lazy(() => import('./views/OCClist/OCC/Secondary/EditOCCcadet'))
 
 // Base
 const Accordion = React.lazy(() => import('./views/base/accordion/Accordion'))
@@ -170,7 +172,6 @@ const routes = [
 
   //Training
   {path: '/trainingHome', name: 'Training', component: Training },
-  {path: '//secondLayerTraining', name: 'Training', component: SecondLayerTraining },
   {path: '/secondLayerTraining', name: 'Training', component: SecondLayerTraining },
   {path: '/trainingDetails', name: 'Training Details', component: TrainingDetails },
   {path: '/trainingAdvance', name: 'Advance Training', component: AdvanceTraining },
@@ -185,6 +186,14 @@ const routes = [
   {path: '/bulletin', name: 'Bulletin', component: Bulletin },
   {path: '/addBulletin', name: 'AddBulletin', component: AddBulletin },
   {path: '/comics', name: 'Paper', component: Comics },
+  //OCC
+  {path: '/occHome', name: 'OCCHome', component: OCCHome },
+  {path: '/occAdd', name: 'Add Class', component: AddOCCClass },
+  {path: '/occEdit', name: 'Edit Class', component: EditOCCClass },
+
+  {path: '/occCadet', name: 'CadetList', component: OCCCadet },
+  {path: '/occCadetAdd', name: 'Add Cadet', component: AddOCCCadet },
+  {path: '/occCadetEdit', name: 'Edt Cadet', component: EditOCCCadet },
 
 ]
 
