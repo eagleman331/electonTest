@@ -176,7 +176,9 @@ const EditClassOCC = () => {
                 </CCol>
 
                 <CCol xs={6}>
-                  <CButton disabled={!noPict} onClick={updatePicture}>
+                  <CButton 
+                  // disabled={!noPict} 
+                  onClick={updatePicture}>
                     Update Picture
                   </CButton>
                 </CCol>
