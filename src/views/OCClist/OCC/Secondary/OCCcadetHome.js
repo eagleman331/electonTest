@@ -159,7 +159,7 @@ console.log("testData", testData)
                         src={data.image}
                       />
                       <CCardBody>
-                        <CCardTitle>{data.alias}</CCardTitle>
+                        <CCardTitle>{data.cadetSurName}</CCardTitle>
                         <CCardText>
                           Some quick example text to build on the card title and make up the bulk of
                           the card's content.

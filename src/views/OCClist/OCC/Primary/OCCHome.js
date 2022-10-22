@@ -128,8 +128,7 @@ const OCCcadetHome = () => {
                       <CCardBody>
                         <CCardTitle>{data.alias}</CCardTitle>
                         <CCardText>
-                          Some quick example text to build on the card title and make up the bulk of
-                          the card's content.
+                         {data.occClass}
                         </CCardText>
                         <CButton
                           style={{ marginRight: '10rem',width:'10rem' }}
