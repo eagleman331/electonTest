@@ -41,7 +41,7 @@ const OCCcadetHome = () => {
 
     setCompleteWOrk((prevState) => ({
       ...prevState,
-      primaryData: 'OCCHome',
+      primaryData: 'OCC',
       first: testId.testId,
     }))
     history.push('/occCadet')
