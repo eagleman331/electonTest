@@ -36,10 +36,14 @@ const EditOCCcadet = () => {
   const [finalData, setFinalData] = useState([])
   const [cadetName, setCadetName] = useState(null)
   const [cadetNumber, setCadetNumber] = useState(null)
+  const [idAllCadet,setIdAllCadet] = useState(null)
 
   const [middleName, setMiddleName] = useState(null)
   const [email, setEmail] = useState(null)
   const [cadetSurName, setCadetSurName] = useState(null)
+  const [course, setCourse] = useState(null)
+  const [gender, setGender] = useState(null)
+  const [ethnic, setEthnic] = useState(null)
 
   const [imageName, setImageName] = useState('')
   const [imageDocs, setImageDocs] = useState({})
@@ -68,7 +72,15 @@ const EditOCCcadet = () => {
   const handleChangeMiddleName = (event) => {
     setMiddleName(event.target.value)
   }
-
+  const handleChangeCourse = (event) => {
+    setCourse(event.target.value)
+  }
+  const handleChangeGender = (event) => {
+    setGender(event.target.value)
+  }
+  const handleChangeEthnic = (event) => {
+    setEthnic(event.target.value)
+  }
 
   const deletePicture = () => {
     const storageRef = storage.refFromURL(imageDocs)
@@ -79,7 +91,7 @@ const EditOCCcadet = () => {
       })
       .catch((err) => console.log(err))
   }
-
+  
   const updatePicture = async () => {
     const imageId = imageDocs
     if (imageId !== null) {
@@ -105,13 +117,45 @@ const EditOCCcadet = () => {
         middleName: middleName,
         cadetSurName:cadetSurName,
         email:email,
-        email:email,
         cadetNumber: cadetNumber,
+        
+        course:course,
+        gender:gender,
+        ethnic:ethnic,
       })
       .catch((error) => alert(error))
 
+  const updateOCCList = async() => {
+
+        await db
+        .collection("AllOCSCadet")
+        .doc(idAllCadet)
+        .update({
+          cadetFullName: cadetSurName + " " + middleName + " " + cadetName,
+          cadetSurName:cadetSurName,
+          middleName:middleName,
+          cadetName:cadetName,
+          cadetDataLoc:{
+            primary:primaryData,
+            first: first,
+            CadetDoc:uniqueId,
+          },
+          cadetNumber: cadetNumber,
+          email:email,
+          className:className,
+          //image
+          imageName: uniqueId,
+          image: imagepic,
+        })
+        .catch((error) => alert(error))
+      }
+
+      updateOCCList()
+
     history.push("/secondLayerTraining")
   }
+
+
 
   const deleteData = (first) => {
     db.collection(primaryData).doc(first)
@@ -137,6 +181,7 @@ const EditOCCcadet = () => {
     setMiddleName(finalData.middleName)
     setEmail(finalData.email)
     setCadetNumber(finalData.cadetNumber)
+    setIdAllCadet(finalData.locListofCadet)
   }, [finalData])
 
   return (
@@ -189,11 +234,24 @@ const EditOCCcadet = () => {
                   <CFormLabel htmlFor="inputCity">Cadet Number</CFormLabel>
                   <CFormInput id="cadetNumber" value={cadetNumber} onChange={handleChangeCadetNumber} />
                 </CCol>
-
+                <CCol md={6}>
+                  <CFormLabel htmlFor="inputCity">Course</CFormLabel>
+                  <CFormInput id="course" value={course} onChange={handleChangeCourse} />
+                </CCol>
+                <CCol md={6}>
+                  <CFormLabel htmlFor="inputCity">Gender</CFormLabel>
+                  <CFormInput id="gender" value={gender} onChange={handleChangeGender} />
+                </CCol>
+                <CCol md={6}>
+                  <CFormLabel htmlFor="inputCity">Ethnic</CFormLabel>
+                  <CFormInput id="ethnic" value={ethnic} onChange={handleChangeEthnic} />
+                </CCol>
 
 
                 <CCol xs={6}>
-                  <CButton disabled={!noPict} onClick={updatePicture}>
+                  <CButton 
+                  // disabled={!noPict} 
+                  onClick={updatePicture}>
                     Update Picture
                   </CButton>
                 </CCol>

@@ -77,7 +77,7 @@ const Training = () => {
   //
   const deleteInList = async() => {
     await db
-    .collection("OCCHome")
+    .collection("AllOCSCadet")
     .doc(data.locListofCadet)
     .delete()
   }
@@ -132,7 +132,7 @@ const Training = () => {
         ),
       )
   }, [])
-console.log("testData", testData)
+
   return (
     <CRow>
       <CCol xs={12}>

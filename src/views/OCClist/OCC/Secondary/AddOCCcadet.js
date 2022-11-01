@@ -32,8 +32,6 @@ const AddOCCcadet = () => {
   const [email, setEmail] = useState(null)
   const [cadetNumber, setCadetNumber] = useState(null)
   const [middleName, setMiddleName] = useState(null)
-
-  const [ocNumber, setOcNumber] = useState(null)
   const [course, setCourse] = useState(null)
   const [gender, setGender] = useState(null)
   const [ethnic, setEthnic] = useState(null)
@@ -60,7 +58,7 @@ const AddOCCcadet = () => {
   }
   const register = async () => {
     const uniqueId = myUuid
-    const imageName = imageNum
+    var imageName = imageNum
     const storageRef = storage.ref()
     //image
     const fileRef = storageRef.child(imageName)
@@ -78,7 +76,6 @@ const AddOCCcadet = () => {
         cadetNumber: cadetNumber,
         email:email,
         locListofCadet: idAllCadet,
-        ocNumber:ocNumber,
         course:course,
         gender:gender,
         ethnic:ethnic,
@@ -95,6 +92,9 @@ const AddOCCcadet = () => {
       .doc(idAllCadet)
       .set({
         cadetFullName: cadetSurName + " " + middleName + " " + cadetName,
+        cadetSurName:cadetSurName,
+        middleName:middleName,
+        cadetName:cadetName,
         cadetDataLoc:{
           primary:primaryData,
           first: first,
@@ -141,10 +141,6 @@ const AddOCCcadet = () => {
   }
   const handleChangeCadetNumber = (event) => {
     setCadetNumber(event.target.value)
-  }
-  //
-  const handleChangeOcNumber = (event) => {
-    setOcNumber(event.target.value)
   }
   const handleChangeCourse = (event) => {
     setCourse(event.target.value)
@@ -213,11 +209,6 @@ const AddOCCcadet = () => {
                 <CCol md={6}>
                   <CFormLabel htmlFor="inputCity">Email</CFormLabel>
                   <CFormInput id="email" value={email} onChange={handleChangeEmail} />
-                </CCol>
-
-                <CCol md={6}>
-                  <CFormLabel htmlFor="inputCity">OC Number</CFormLabel>
-                  <CFormInput id="ocNumber" value={ocNumber} onChange={handleChangeOcNumber} />
                 </CCol>
 
                 <CCol md={6}>
