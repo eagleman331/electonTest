@@ -113,9 +113,9 @@ const EditOCCcadet = () => {
       .update({
         imageName: uniqueId,
         image: imagepic,
-        cadetName: cadetName,
-        middleName: middleName,
-        cadetSurName:cadetSurName,
+        cadetName: cadetName.toLowerCase(),
+        middleName: middleName.toLowerCase(),
+        cadetSurName:cadetSurName.toLowerCase(),
         email:email,
         cadetNumber: cadetNumber,
         
@@ -125,16 +125,14 @@ const EditOCCcadet = () => {
       })
       .catch((error) => alert(error))
 
-  const updateOCCList = async() => {
-
         await db
         .collection("AllOCSCadet")
         .doc(idAllCadet)
         .update({
-          cadetFullName: cadetSurName + " " + middleName + " " + cadetName,
-          cadetSurName:cadetSurName,
-          middleName:middleName,
-          cadetName:cadetName,
+          cadetFullName: cadetSurName.toLowerCase() + " " + middleName.toLowerCase() + " " + cadetName.toLowerCase(),
+          cadetSurName:cadetSurName.toLowerCase(),
+          middleName:middleName.toLowerCase(),
+          cadetName:cadetName.toLowerCase(),
           cadetDataLoc:{
             primary:primaryData,
             first: first,
@@ -142,17 +140,14 @@ const EditOCCcadet = () => {
           },
           cadetNumber: cadetNumber,
           email:email,
-          className:className,
           //image
           imageName: uniqueId,
           image: imagepic,
         })
         .catch((error) => alert(error))
-      }
 
-      updateOCCList()
 
-    history.push("/secondLayerTraining")
+    history.push("/occCadet")
   }
 
 

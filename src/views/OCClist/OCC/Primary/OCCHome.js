@@ -24,7 +24,7 @@ import {
 import { DocsCallout, DocsExample } from 'src/components'
 
 import ReactImg from 'src/assets/images/react.jpg'
-
+import angular from 'src/assets/images/angular.jpg'
 import { useHistory } from 'react-router-dom'
 import { db, storage } from '../../../../Firebase'
 import { TaskContext } from '../../../../contexts/TaskContext'
@@ -81,15 +81,15 @@ const OCCcadetHome = () => {
       .catch((err) => console.log(err))
   }
   //
-  const deleteData = (id) => {
+  const deleteData = async(id) => {
     const imageId = id.data.image
 
     if (imageId !== undefined && null) {
       deletePicture(id)
     }
     const cardData = id.id
-    const unsubscribe = db.collection('OCC').doc(cardData).delete()
-    return unsubscribe
+    await db.collection('OCC').doc(cardData).delete()
+   
   }
 
   useEffect(() => {
@@ -124,7 +124,7 @@ const OCCcadetHome = () => {
                 return (
                   <CCol xs key={k}>
                     <CCard style={{ width: '18rem' }}>
-                      <CCardImage style={{height: 150}} orientation="top" alt="none" src={data.image} />
+                      <CCardImage style={{height: 150}} orientation="top" alt="none" src={angular} />
                       <CCardBody>
                         <CCardTitle>{data.alias}</CCardTitle>
                         <CCardText>

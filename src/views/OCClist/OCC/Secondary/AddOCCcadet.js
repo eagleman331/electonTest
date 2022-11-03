@@ -70,15 +70,15 @@ const AddOCCcadet = () => {
       .collection(first)
       .doc(uniqueId)
       .set({
-        cadetName: cadetName,
-        cadetSurName:cadetSurName,
-        middleName: middleName,
+        cadetName: cadetName.toLowerCase(),
+        cadetSurName:cadetSurName.toLowerCase(),
+        middleName: middleName.toLowerCase(),
         cadetNumber: cadetNumber,
         email:email,
         locListofCadet: idAllCadet,
-        course:course,
-        gender:gender,
-        ethnic:ethnic,
+        course:course.toLowerCase(),
+        gender:gender.toLowerCase(),
+        ethnic:ethnic.toLowerCase(),
 
         imageName: imageName,
         image: imageDocs,

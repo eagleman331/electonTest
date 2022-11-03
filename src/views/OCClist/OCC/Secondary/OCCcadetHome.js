@@ -24,6 +24,7 @@ import {
 import { DocsCallout, DocsExample } from 'src/components'
 
 import ReactImg from 'src/assets/images/react.jpg'
+import angular from 'src/assets/images/angular.jpg'
 import { query, where, orderBy, limit, collection, getDocs } from 'firebase/firestore'
 import { useHistory } from 'react-router-dom'
 import { db, storage } from '../../../../Firebase'
@@ -81,8 +82,8 @@ const Training = () => {
     .doc(data.locListofCadet)
     .delete()
   }
-  const deleteData = (id) => {
-    updateClass()
+  const deleteData = async(id) => {
+    // updateClass()
     deleteInList()
     const imageId = id.data.image
 
@@ -90,18 +91,13 @@ const Training = () => {
       deletePicture(id)
     }
     const cardData = id.id
-    const unsubscribe = db
+    await db
       .collection(primaryData)
       .doc(first)
       .collection(first)
       .doc(cardData)
       .delete()
-    return unsubscribe
-
-   
-   
   }
-
 
   useEffect(() => {
     const unsubscribe = db
@@ -156,7 +152,7 @@ const Training = () => {
                         style={{ height: 150 }}
                         orientation="top"
                         alt="none"
-                        src={data.image}
+                        src={angular}
                       />
                       <CCardBody>
                         <CCardTitle>{data.cadetSurName}</CCardTitle>
