@@ -33,9 +33,8 @@ const AddOCCcadet = () => {
   const [cadetNumber, setCadetNumber] = useState(null)
   const [middleName, setMiddleName] = useState(null)
   const [course, setCourse] = useState(null)
-  const [gender, setGender] = useState(null)
+  const [gender, setGender] = useState("Male")
   const [ethnic, setEthnic] = useState(null)
-
   const [finalData, setFinalData] = useState([])
 
   //
@@ -46,7 +45,7 @@ const AddOCCcadet = () => {
 
   const idAllCadet = uuid()
 
-  const { completeWork, setCompleteWOrk, className } = useContext(TaskContext)
+  const { completeWork, setCompleteWOrk } = useContext(TaskContext)
   const { first, second, primaryData } = completeWork
 
   const toggleImage = () => setNoPict((value) => !value)
@@ -76,9 +75,9 @@ const AddOCCcadet = () => {
         cadetNumber: cadetNumber,
         email:email,
         locListofCadet: idAllCadet,
-        course:course.toLowerCase(),
-        gender:gender.toLowerCase(),
-        ethnic:ethnic.toLowerCase(),
+        course:course,
+        gender:gender,
+        ethnic:ethnic,
 
         imageName: imageName,
         image: imageDocs,
@@ -91,10 +90,10 @@ const AddOCCcadet = () => {
 
       .doc(idAllCadet)
       .set({
-        cadetFullName: cadetSurName + " " + middleName + " " + cadetName,
-        cadetSurName:cadetSurName,
-        middleName:middleName,
-        cadetName:cadetName,
+        cadetFullName: cadetSurName.toLowerCase() + " " + middleName.toLowerCase() + " " + cadetName.toLowerCase(),
+        cadetSurName:cadetSurName.toLowerCase(),
+        middleName:middleName.toLowerCase(),
+        cadetName:cadetName.toLowerCase(),
         cadetDataLoc:{
           primary:primaryData,
           first: first,
@@ -102,7 +101,11 @@ const AddOCCcadet = () => {
         },
         cadetNumber: cadetNumber,
         email:email,
-        className:className,
+        occClass:finalData.occClass,
+        year: finalData.year,
+        course:course,
+        gender:gender,
+        ethnic:ethnic,
         //image
         imageName: imageName,
         image: imageDocs,
@@ -164,6 +167,7 @@ const AddOCCcadet = () => {
   }, [])
 
 
+  console.log("dataPreview", finalData)
   return (
     <CRow>
       <CCol xs={12}>

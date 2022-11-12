@@ -112,22 +112,10 @@ const Training = () => {
           })),
         ),
       )
+      return unsubscribe;
   }, [])
 
-  useEffect(() => {
-    const unsubscribe = db
-      .collection('AllOCSCadet')
-      .orderBy("cadetFullName")
-      .get()
-      .then((snapshot) =>
-        setTestData(
-          snapshot.docs.map((doc) => ({
-            id: doc.id,
-            data: doc.data(),
-          })),
-        ),
-      )
-  }, [])
+
 
   return (
     <CRow>
