@@ -1,6 +1,7 @@
 {
   "name": "@coreui/coreui-free-react-admin-template",
   "version": "4.1.1",
+  "main": "public/electron.js",
   "description": "CoreUI Free React Admin Template",
   "homepage": ".",
   "bugs": {
@@ -19,10 +20,22 @@
     "eject": "react-scripts eject",
     "lint": "eslint \"src/**/*.js\"",
     "start": "react-scripts start",
+    
+    "dev": "concurrently \"cross-env BROWSER=none npm start\" \"wait-on http://localhost:3000 && electron .\"",
+    "electron": "wait-on tcp:3000 && electron .",
     "start:n17": "react-scripts --openssl-legacy-provider start",
     "test": "react-scripts test",
     "test:cov": "npm test -- --coverage --watchAll=false",
-    "test:debug": "react-scripts --inspect-brk test --runInBand"
+    "test:debug": "react-scripts --inspect-brk test --runInBand",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "postinstall": "electron-builder install-app-deps"
+  },
+  "build": {
+    "appId": "your.id",
+    "mac": {
+      "category": "your.app.category.type"
+    }
   },
   "config": {
     "coreui_library_short_version": "4.1"
@@ -40,9 +53,11 @@
     "axios": "^0.26.0",
     "chart.js": "^3.6.0",
     "classnames": "^2.3.1",
+    "concurrently": "^7.5.0",
     "core-js": "^3.19.1",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
+    "electron-is-dev": "^2.0.0",
     "enzyme": "^3.11.0",
     "express": "^4.17.3",
     "firebase": "^9.6.7",
@@ -56,10 +71,13 @@
     "react-redux": "^7.2.6",
     "react-router-dom": "^5.3.0",
     "redux": "4.1.2",
-    "simplebar-react": "^2.3.6"
+    "simplebar-react": "^2.3.6",
+    "wait-on": "^6.0.1"
   },
   "devDependencies": {
     "auto-changelog": "~2.3.0",
+    "electron": "^21.2.3",
+    "electron-builder": "^23.6.0",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
